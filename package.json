@@ -1,0 +1,47 @@
+{
+  "name": "mita",
+  "version": "0.0.1",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/hardhat",
+      "packages/nextjs"
+    ]
+  },
+  "scripts": {
+    "account": "yarn workspace @mita/hardhat account",
+    "chain": "yarn workspace @mita/hardhat chain",
+    "fork": "yarn workspace @mita/hardhat fork",
+    "deploy": "yarn workspace @mita/hardhat deploy",
+    "verify": "yarn workspace @mita/hardhat verify",
+    "hardhat-verify": "yarn workspace @mita/hardhat hardhat-verify",
+    "compile": "yarn workspace @mita/hardhat compile",
+    "generate": "yarn workspace @mita/hardhat generate",
+    "flatten": "yarn workspace @mita/hardhat flatten",
+    "hardhat:lint": "yarn workspace @mita/hardhat lint",
+    "hardhat:lint-staged": "yarn workspace @mita/hardhat lint-staged",
+    "hardhat:format": "yarn workspace @mita/hardhat format",
+    "hardhat:check-types": "yarn workspace @mita/hardhat check-types",
+    "hardhat:test": "yarn workspace @mita/hardhat test",
+    "test": "yarn hardhat:test",
+    "format": "yarn next:format && yarn hardhat:format",
+    "start": "yarn workspace @mita/nextjs dev",
+    "next:lint": "yarn workspace @mita/nextjs lint",
+    "next:format": "yarn workspace @mita/nextjs format",
+    "next:check-types": "yarn workspace @mita/nextjs check-types",
+    "next:build": "yarn workspace @mita/nextjs build",
+    "next:serve": "yarn workspace @mita/nextjs serve",
+    "postinstall": "husky",
+    "precommit": "lint-staged",
+    "vercel": "yarn workspace @mita/nextjs vercel",
+    "vercel:yolo": "yarn workspace @mita/nextjs vercel:yolo"
+  },
+  "packageManager": "yarn@3.2.3",
+  "devDependencies": {
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  }
+}
