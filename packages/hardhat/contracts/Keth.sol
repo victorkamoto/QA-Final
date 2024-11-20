@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract KethToken is ERC20, Ownable {
-	address public paymentProcessor; // Trusted backend for minting tokens
+	address public paymentProcessor;
 	string public greeting = "Keth token!!!";
 
 	event PaymentProcessed(
@@ -17,23 +17,35 @@ contract KethToken is ERC20, Ownable {
 		uint256 tokensMinted
 	);
 
-	constructor() Ownable(msg.sender) ERC20("KethToken", "KETH") {
-		// No initial supply minted
-	}
+	event WithdrawalRequested(address indexed user, uint256 amountInKES);
 
-	// Set the payment processor address (can only be done by the contract owner)
+	constructor() Ownable(msg.sender) ERC20("KethToken", "KETH") {}
+
 	function setPaymentProcessor(address _processor) external onlyOwner {
 		paymentProcessor = _processor;
 	}
 
-	// Mint tokens based on KES received (only callable by the payment processor)
 	function mintTokens(address to, uint256 amountInKES) external {
 		require(msg.sender == paymentProcessor, "Not authorized to mint");
 		require(amountInKES > 0, "Amount must be greater than zero");
 
-		uint256 tokensToMint = amountInKES * 10 ** decimals(); // Assuming 1 token = 1 KES
+		uint256 tokensToMint = amountInKES * 10 ** decimals();
 		_mint(to, tokensToMint);
 
 		emit PaymentProcessed(to, amountInKES, tokensToMint);
+	}
+
+	function requestWithdrawal(uint256 amountInKES) external {
+		require(amountInKES > 0, "Amount must be greater than zero");
+
+		uint256 tokensToBurn = amountInKES * 10 ** decimals();
+		require(
+			balanceOf(msg.sender) >= tokensToBurn,
+			"Insufficient token balance"
+		);
+
+		_burn(msg.sender, tokensToBurn);
+
+		emit WithdrawalRequested(msg.sender, amountInKES);
 	}
 }
