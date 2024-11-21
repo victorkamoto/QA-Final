@@ -19,7 +19,9 @@ contract KethToken is ERC20, Ownable {
 
 	event WithdrawalRequested(address indexed user, uint256 amountInKES);
 
-	constructor() Ownable(msg.sender) ERC20("KethToken", "KETH") {}
+	constructor(
+		address initialOwner
+	) ERC20("KethToken", "KETH") Ownable(initialOwner) {}
 
 	function setPaymentProcessor(address _processor) external onlyOwner {
 		paymentProcessor = _processor;
