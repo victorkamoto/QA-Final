@@ -7,8 +7,10 @@ describe("KethToken", function () {
 
   let token: KethToken;
   before(async () => {
+    const [deployer] = await ethers.getSigners();
     const tokenFactory = await ethers.getContractFactory("KethToken");
-    token = (await tokenFactory.deploy()) as KethToken;
+
+    token = (await tokenFactory.deploy(deployer.address)) as KethToken;
     await token.waitForDeployment();
   });
 
