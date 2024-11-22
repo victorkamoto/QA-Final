@@ -5,7 +5,8 @@
   "workspaces": {
     "packages": [
       "packages/hardhat",
-      "packages/nextjs"
+      "packages/nextjs",
+      "packages/off-ramp"
     ]
   },
   "scripts": {
@@ -26,6 +27,8 @@
     "test": "yarn hardhat:test",
     "format": "yarn next:format && yarn hardhat:format",
     "start": "yarn workspace @mita/nextjs dev",
+    "serve": "yarn workspace @mita/off-ramp start",
+    "serve:dev": "yarn workspace @mita/off-ramp dev",
     "next:lint": "yarn workspace @mita/nextjs lint",
     "next:format": "yarn workspace @mita/nextjs format",
     "next:check-types": "yarn workspace @mita/nextjs check-types",
